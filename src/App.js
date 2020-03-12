@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route,Link, Redirect} from 'react-router-dom'
 import './App.css';
 import Transactions from './components/Transactions';
 import Operations from './components/Operations';
@@ -12,37 +12,38 @@ class App extends Component {
     this.state = {
       transactions:[],
       balance:0
-      
     }
   }
-
+  
   async getTransactions() {
     return axios.get("http://localhost:4000/transactions")
   }
 
   async componentDidMount() {
-    const response = await this.getTransactions()    
-    this.setState({ transactions: response.data })
+    const response = await this.getTransactions()   
+    const balance = this.getBalance(response.data) 
+    this.setState({ transactions: response.data, balance })
   }
 
   async componentDidUpdate() {
     const response = await this.getTransactions()    
-    this.setState({ transactions: response.data })
+    const balance = this.getBalance(response.data) 
+    this.setState({ transactions: response.data, balance })
   }
 
   deleteTransaction = async (id) => {
     await axios.delete(`http://localhost:4000/transaction/${id}`)
-    console.log('deleted');
   }
 
-  getBalance = () => {
+  getBalance = (transactions) => {
     let balance = 0
-    this.state.transactions.forEach(t => balance += t.amount)
-    this.setState({balance})
+    transactions.forEach(t => balance += t.amount)
+    return balance
   }
 
   newTransaction = (t) => {
     axios.post("http://localhost:4000/transaction",t)
+    return <Redirect to="/" />
   }
 
   render() {
