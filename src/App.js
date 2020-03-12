@@ -10,52 +10,48 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      transactions: [
-        { amount: 3200, vendor: "Elevation", category: "Salary",id:0 },
-        { amount: -7, vendor: "Runescape", category: "Entertainment",id:1 },
-        { amount: -20, vendor: "Subway", category: "Food",id:2 },
-        { amount: -98, vendor: "La Baguetterie", category: "Food",id:3 }
-      ]
+      transactions:[],
+      balance:0
       
     }
   }
 
-  async getUsers() {
-    // return axios.get("https://jsonplaceholder.typicode.com/users")
+  async getTransactions() {
+    return axios.get("http://localhost:4000/transactions")
   }
 
   async componentDidMount() {
-    // const response = await this.getUsers()
-    // this.setState({ users: response.data })
+    const response = await this.getTransactions()    
+    this.setState({ transactions: response.data })
   }
 
-  deleteTransaction = (id) => {
-    const transactions = [...this.state.transactions]
-    transactions.splice(transactions.findIndex(t => t.id == id),1)
-    this.setState({transactions})
+  async componentDidUpdate() {
+    const response = await this.getTransactions()    
+    this.setState({ transactions: response.data })
+  }
+
+  deleteTransaction = async (id) => {
+    await axios.delete(`http://localhost:4000/transaction/${id}`)
+    console.log('deleted');
   }
 
   getBalance = () => {
-    const sum = 0
-    this.state.transactions.forEach(t => sum += t.amount)
-    return sum
+    let balance = 0
+    this.state.transactions.forEach(t => balance += t.amount)
+    this.setState({balance})
   }
 
   newTransaction = (t) => {
-    const transactions = [...this.state.transactions]
-    t.id = 4
-    transactions.push(t)
-    this.setState({transactions})
+    axios.post("http://localhost:4000/transaction",t)
   }
 
   render() {
-
     return (
       <Router >
         <div id="header">
           <Link to="/"><h4>Transactions</h4></Link>
           <Link to="/operations"><h4>Operations</h4></Link>
-          <h4>Balance: <p>{this.getBalance}</p></h4>
+          <h4>Balance: <p>{this.state.balance}</p></h4>
         </div>
         <Route path="/" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}/>

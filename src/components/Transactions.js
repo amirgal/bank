@@ -12,7 +12,7 @@ class Transactions extends Component {
             <div id="transactions">
                 <h3>Transactions</h3>
                 {this.props.transactions.map(t => 
-                    <Transaction key={t.id} transaction={t} deleteTransaction={this.deleteTransaction}/>
+                    <Transaction key={t._id} transaction={t} deleteTransaction={this.deleteTransaction}/>
                     )}
             </div>
         )

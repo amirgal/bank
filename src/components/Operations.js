@@ -14,8 +14,7 @@ class Operations extends Component {
     handleInput = (e) => {
         const val = e.target.value
         const id = e.target.id
-        return id == 'amount' ? this.setState({amount:val}) :
-            id == 'vendor' ? this.setState({vendor:val}) : this.setState({category:val})
+        this.setState({[id]:val})
     }
 
     newTransaction = (e) => {
