@@ -18,3 +18,7 @@ h4 {
 .deposit {
   background-color: green;
 }
+
+a{
+  text-decoration: none;
+}

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 class Operations extends Component {
 
@@ -27,13 +28,14 @@ class Operations extends Component {
     }
 
     render() {
+       
         return (
             <div id="operations">
                 <input type="number" id="amount" value={this.state.amount} placeholder="enter amount" onChange={this.handleInput}/>
                 <input type="text" id="vendor" value={this.state.vendor} placeholder="enter vendor" onChange={this.handleInput}/>
                 <input type="text" id="category" value={this.state.category} placeholder="enter category" onChange={this.handleInput}/>
-                <button className="deposit-btn" onClick={this.newTransaction}>Deposit</button>
-                <button className="withdraw-btn" onClick={this.newTransaction}>Withdraw</button>
+                <Link to="/" ><button className="deposit-btn" onClick={this.newTransaction}>Deposit</button></Link>
+                <Link to="/" ><button className="withdraw-btn" onClick={this.newTransaction}>Withdraw</button></Link>
             </div>
         )
     }
