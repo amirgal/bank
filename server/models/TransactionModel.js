@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const transactionSchema = new Schema({
   amount: Number,
   category: String,
-  vendor: String
+  vendor: String,
+  _id: String
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

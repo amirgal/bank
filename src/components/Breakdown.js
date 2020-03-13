@@ -27,7 +27,7 @@ class Breakdown extends Component {
             <div id="transactions">
                 <h3>Breakdown</h3>
                 {Object.keys(this.state.transByCategory).map(t => 
-                    <Category category={t} amount={this.state.transByCategory[t]}/>
+                    <Category key={t} category={t} amount={this.state.transByCategory[t]}/>
                     )}
             </div>
         )

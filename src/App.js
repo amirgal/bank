@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route,Link, Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Route,Link} from 'react-router-dom'
 import './App.css';
 import Transactions from './components/Transactions';
 import Operations from './components/Operations';
@@ -26,14 +26,10 @@ class App extends Component {
     this.setState({ transactions: response.data, balance })
   }
 
-  async componentDidUpdate() {
-    const response = await this.getTransactions()    
-    const balance = this.getBalance(response.data) 
-    this.setState({ transactions: response.data, balance })
-  }
-
-  deleteTransaction = async (id) => {
-    await axios.delete(`http://localhost:4000/transaction/${id}`)
+  deleteTransaction = (id) => {
+    axios.delete(`http://localhost:4000/transaction/${id}`)
+    const transactions = this.state.transactions.filter(t => t._id != id)
+    this.setState({transactions})
   }
 
   getBalance = (transactions) => {
@@ -41,9 +37,15 @@ class App extends Component {
     transactions.forEach(t => balance += t.amount)
     return balance
   }
+  getRandomId () {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
 
-  newTransaction = async(t) => {
+  newTransaction = (t) => {
+    t._id = this.getRandomId()
     axios.post("http://localhost:4000/transaction",t)
+    const transactions = [...this.state.transactions,t]
+    this.setState({transactions})
   }
 
   render() {
@@ -54,7 +56,7 @@ class App extends Component {
           <Link to="/"><h4>Transactions</h4></Link>
           <Link to="/operations"><h4>Operations</h4></Link>
           <Link to="/breakdown"><h4>Breakdown</h4></Link>
-          <h4>Balance: {this.state.balance}</h4>
+          <h4>Balance: {this.getBalance(this.state.transactions)}</h4>
         </div>
         <Route path="/" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}/>
