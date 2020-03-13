@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Button} from '@material-ui/core'
+import {Button} from '@material-ui/core'
 
 class Transaction extends Component {
 

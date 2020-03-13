@@ -7,23 +7,27 @@
 }
 
 #transactions {
-  display: grid;
+  text-align: center;
+}
+
+.transItem {
+  width: -webkit-fill-available;
 }
 
 .transaction {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin-top: 10px;
   justify-items: center;
   align-items: center;
+  border-radius: 4px;
 }
 
 .withdrawal {
-  background-color: red;
+  background-color: #e80000c9;
 }
 
 .deposit {
-  background-color: green;
+  background-color: #008a00cc;
 }
 
 a{
