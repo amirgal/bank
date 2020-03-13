@@ -59,13 +59,11 @@ class App extends Component {
           Balance: {this.getBalance(this.state.transactions)}
         </div>
         
-        
         <Route path="/" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}/>
         <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction}/>}/>
         <Route path="/breakdown" exact render={() => <Breakdown transactions={this.state.transactions}/>}/>
-      </Router>
-       
+      </Router> 
     );
   }
 }

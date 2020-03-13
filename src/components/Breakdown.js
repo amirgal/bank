@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Category} from './';
+import { Grid,Paper } from '@material-ui/core';
 
 class Breakdown extends Component {
     constructor() {
@@ -26,9 +27,11 @@ class Breakdown extends Component {
         return (
             <div id="transactions">
                 <h3>Breakdown</h3>
+                <Grid container direction="column" spacing={1} alignItems="center">
                 {Object.keys(this.state.transByCategory).map(t => 
-                    <Category key={t} category={t} amount={this.state.transByCategory[t]}/>
+                    <Grid item xs={6} key={t}><Paper><Category category={t} amount={this.state.transByCategory[t]}/></Paper></Grid>
                     )}
+                </Grid>
             </div>
         )
     }
