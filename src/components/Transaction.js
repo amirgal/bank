@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Grid, Button} from '@material-ui/core'
 
 class Transaction extends Component {
 
@@ -14,7 +15,7 @@ class Transaction extends Component {
                 <p className="amount">Amount: {t.amount}</p>
                 <p className="vendor">Vendor: {t.vendor}</p>
                 <p className="category">Category: {t.category}</p>
-                <button className="delete-btn" onClick={this.deleteTransaction}>Delete</button>
+                <Button variant="contained" className="delete-btn" onClick={this.deleteTransaction}>Delete</Button>
             </div>
         )
     }

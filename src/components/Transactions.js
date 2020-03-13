@@ -10,7 +10,7 @@ class Transactions extends Component {
     render() {
         return (
             <div id="transactions">
-                <h3>Transactions</h3><hr/>
+                <h3>Transactions</h3>
                 {this.props.transactions.map(t => 
                     <Transaction key={t._id} transaction={t} deleteTransaction={this.deleteTransaction}/>
                     )}
