@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route,Link} from 'react-router-dom'
 import './App.css';
-import Transactions from './components/Transactions';
-import Operations from './components/Operations';
-import Breakdown from './components/Breakdown';
+import {Transactions, Operations, Breakdown} from './components'
+import {AppBar, Button} from '@material-ui/core'
+
 const axios = require('axios');
 
 class App extends Component {
@@ -53,11 +53,13 @@ class App extends Component {
     return (
       <Router >
         <div id="header">
-          <Link to="/"><h4>Transactions</h4></Link>
-          <Link to="/operations"><h4>Operations</h4></Link>
-          <Link to="/breakdown"><h4>Breakdown</h4></Link>
-          <h4>Balance: {this.getBalance(this.state.transactions)}</h4>
+          <Link to="/"><Button variant="contained" color="primary">Transactions</Button></Link>
+          <Link to="/operations"><Button variant="contained" color="primary">Operations</Button></Link>
+          <Link to="/breakdown"><Button variant="contained" color="primary">Breakdown</Button></Link>
+          Balance: {this.getBalance(this.state.transactions)}
         </div>
+        
+        
         <Route path="/" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}/>
         <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction}/>}/>

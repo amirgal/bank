@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Transaction from './Transaction';
+import {Transaction} from './';
 
 class Transactions extends Component {
 
@@ -10,7 +10,7 @@ class Transactions extends Component {
     render() {
         return (
             <div id="transactions">
-                <h3>Transactions</h3>
+                <h3>Transactions</h3><hr/>
                 {this.props.transactions.map(t => 
                     <Transaction key={t._id} transaction={t} deleteTransaction={this.deleteTransaction}/>
                     )}
