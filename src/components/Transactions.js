@@ -7,7 +7,8 @@ function Transactions(props) {
     const deleteTransaction = (id) => {
         props.deleteTransaction(id)
     }
-
+    console.log('newPath');
+    
     return (
         <div id="transactions">
             <h3>Transactions</h3><hr/>
