@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
+import Login from './components/Login';
 
 const axios = require('axios');
 
@@ -53,7 +54,8 @@ class App extends Component {
     return (
       <Router >
         <MyAppBar path={this.state.path}/>   
-        <Route path="/" exact render={() => 
+        <Route path="/" exact render={() => <Login />}></Route>
+        <Route path="/transactions" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}
         />
         <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction}/>}/>

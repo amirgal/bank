@@ -11,7 +11,6 @@ function Transactions(props) {
     
     return (
         <div id="transactions">
-            <h3>Transactions</h3><hr/>
             <Grid container direction="column" spacing={1} alignItems="center">
             {props.transactions.map(t => 
                 <Grid item xs={8} className="transItem" key={t._id}>

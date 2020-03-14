@@ -24,7 +24,7 @@ export default function DrawerMenu(props) {
       onKeyDown={props.toggleDrawer()}
     >
       <List>
-        {[{text:'Transactions',link:'/'}, {text:'Operations',link:'/operations'}, {text:'Breakdown',link:'/breakdown'}].map(op => (
+        {[{text:'Transactions',link:'/transactions'}, {text:'Operations',link:'/operations'}, {text:'Breakdown',link:'/breakdown'}].map(op => (
           <Link to={op.link} key={op.text}>
             <ListItem button >
               <ListItemIcon><InboxIcon /></ListItemIcon>
