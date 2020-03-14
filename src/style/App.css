@@ -1,9 +1,20 @@
+#root {
+  display: grid;
+  width: 99vw;
+}
+
+#operations-form {
+  justify-self: center;
+  margin-top: 18%;
+}
+
 #header {
-  margin-bottom: 10px;
+  
 }
 
 #transactions {
   text-align: center;
+  margin-top: 18%;
 }
 
 .transItem {

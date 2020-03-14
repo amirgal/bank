@@ -12,7 +12,6 @@ class App extends Component {
     super()
     this.state = {
       transactions:[],
-      balance:0,
       path:'Transactions'
     }
   }
@@ -23,8 +22,7 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await this.getTransactions()   
-    const balance = this.getBalance(response.data) 
-    this.setState({ transactions: response.data, balance })
+    this.setState({ transactions: response.data})
   }
 
   deleteTransaction = (id) => {
@@ -53,12 +51,12 @@ class App extends Component {
     
     return (
       <Router >
-        <MyAppBar path={this.state.path}/>   
+        <MyAppBar path={this.state.path}/>  
         <Route path="/" exact render={() => <Login />}></Route>
         <Route path="/transactions" exact render={() => 
             <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}
         />
-        <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction}/>}/>
+        <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.transactions)}/>}/>
         <Route path="/breakdown" exact render={() => <Breakdown transactions={this.state.transactions}/>}/>
       </Router> 
     );

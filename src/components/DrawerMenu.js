@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import {Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import {Create as CreateIcon, CallSplit as CallSplitIcon, AccountBalance as AccountBalanceIcon} from '@material-ui/icons';
 
 const useStyles = makeStyles({
   list: {
@@ -15,7 +15,11 @@ const useStyles = makeStyles({
 
 export default function DrawerMenu(props) {
   const classes = useStyles();
-
+  const menuItems = [
+    {text:'Transactions', link:'/transactions', icon:<AccountBalanceIcon />},
+    {text:'Operations', link:'/operations', icon:<CreateIcon />},
+    {text:'Breakdown', link:'/breakdown', icon:<CallSplitIcon />}
+  ]
   const sideList = () => (
     <div
       className={classes.list}
@@ -24,10 +28,10 @@ export default function DrawerMenu(props) {
       onKeyDown={props.toggleDrawer()}
     >
       <List>
-        {[{text:'Transactions',link:'/transactions'}, {text:'Operations',link:'/operations'}, {text:'Breakdown',link:'/breakdown'}].map(op => (
+        {menuItems.map(op => (
           <Link to={op.link} key={op.text}>
             <ListItem button >
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon>{op.icon}</ListItemIcon>
               <ListItemText primary={op.text} />
             </ListItem>
           </Link>

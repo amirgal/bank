@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button} from '@material-ui/core'
-
+import {Button, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 function Transaction(props) {
 
@@ -16,7 +16,10 @@ function Transaction(props) {
             <p className="amount">Amount: {t.amount}</p>
             <p className="vendor">Vendor: {t.vendor}</p>
             <p className="category">Category: {t.category}</p>
-            <Button variant="contained" className="delete-btn" onClick={deleteTransaction}>Delete</Button>
+            {/* <Button variant="contained" onClick={deleteTransaction}>Delete</Button> */}
+            <IconButton aria-label="delete">
+                <DeleteIcon fontSize="large" onClick={deleteTransaction}/>
+            </IconButton>
         </div>
     ) 
 }
