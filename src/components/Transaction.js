@@ -17,8 +17,8 @@ function Transaction(props) {
             <p className="vendor">Vendor: {t.vendor}</p>
             <p className="category">Category: {t.category}</p>
             {/* <Button variant="contained" onClick={deleteTransaction}>Delete</Button> */}
-            <IconButton aria-label="delete">
-                <DeleteIcon fontSize="large" onClick={deleteTransaction}/>
+            <IconButton aria-label="delete" onClick={deleteTransaction}>
+                <DeleteIcon fontSize="large"/>
             </IconButton>
         </div>
     ) 

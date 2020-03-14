@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField'
 import { List, ListItem, Button, Divider } from '@material-ui/core';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 class Operations extends Component {
 
@@ -9,7 +16,8 @@ class Operations extends Component {
         this.state = {
             amount:'',
             vendor:'',
-            category:''
+            category:'',
+            date: ''
         }
     }
     
@@ -35,6 +43,7 @@ class Operations extends Component {
 
     render() {
         return (
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <form autoComplete="off" noValidate id="operations-form" >
                 <List>
                     <ListItem>
@@ -51,15 +60,16 @@ class Operations extends Component {
                         <Button color="primary" variant="contained" onClick={this.newTransaction}>Deposit</Button>
                         <Button color="secondary" variant="contained" onClick={this.newTransaction}>Withdraw</Button>
                     </ListItem>
+                    {/* <ListItem>
+                    <KeyboardDatePicker
+                        margin="normal" id="date" label="Date" value={this.state.date}
+                        format="MM/dd/yyyy" value={this.state.date} onChange={this.handleInput} 
+                        KeyboardButtonProps={{'aria-label': 'change date',}}
+                    />
+                    </ListItem> */}
                 </List>
             </form>
-            // <div id="operations">
-            //     <input type="number" id="amount" value={this.state.amount} placeholder="enter amount" onChange={this.handleInput}/>
-            //     <input type="text" id="vendor" value={this.state.vendor} placeholder="enter vendor" onChange={this.handleInput}/>
-            //     <input type="text" id="category" value={this.state.category} placeholder="enter category" onChange={this.handleInput}/>
-            //     <button className="deposit-btn" onClick={this.newTransaction}>Deposit</button>
-            //     <button className="withdraw-btn" onClick={this.newTransaction}>Withdraw</button>
-            // </div>
+            </MuiPickersUtilsProvider>
         )
     }
 }
