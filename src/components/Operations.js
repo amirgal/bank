@@ -17,7 +17,7 @@ class Operations extends Component {
             vendor:'',
             category:'',
             date: new Date(),
-            warn:false
+            openSnackBar:false
         }
     }
     
@@ -38,8 +38,7 @@ class Operations extends Component {
     newTransaction = (e) => {
         const sign = e.target.innerText == 'DEPOSIT' ? 1 : -1
         if(sign == -1 && this.state.amount > this.props.balance){
-            // alert('Not enough funds')
-            this.setState({warn:true})
+            this.handleSnackBar(true)
             return
         }
         this.props.newTransaction({
@@ -50,10 +49,11 @@ class Operations extends Component {
         })
         window.location.href='/transactions'
     }
-    openSnackBar = () => {
-        
-    }
 
+    handleSnackBar = (openSnackBar) => {
+        this.setState({openSnackBar})
+    }
+    
     render() {
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -82,7 +82,7 @@ class Operations extends Component {
                     </ListItem>
                 </List>
             </form>
-            <MySnackBar warn={this.state.warn} openSnackBar={this.openSnackBar}/>
+            <MySnackBar open={this.state.openSnackBar} handleSnackBar={this.handleSnackBar}/>
             </MuiPickersUtilsProvider>
         )
     }
