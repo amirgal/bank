@@ -19,6 +19,7 @@ class App extends Component {
   login = (user) => {
     user._id = this.getRandomId()
     console.log(user)
+    window.location.href='/transactions'
   }
 
   async getTransactions() {

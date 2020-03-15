@@ -16,13 +16,21 @@ class Operations extends Component {
             amount:'',
             vendor:'',
             category:'',
-            date: ''
+            date: new Date()
         }
     }
     
     handleInput = (e) => {
-        const val = e.target.value
-        const id = e.target.id
+        if(e == null) {return}        //in case user inputs nothing
+        let val
+        let id
+        if(!e.target){
+            id = 'date'
+            val = e
+        } else {
+            val = e.target.value
+            id = e.target.id
+        }
         this.setState({[id]:val})
     }
 
@@ -59,13 +67,13 @@ class Operations extends Component {
                         <Button color="primary" variant="contained" onClick={this.newTransaction}>Deposit</Button>
                         <Button color="secondary" variant="contained" onClick={this.newTransaction}>Withdraw</Button>
                     </ListItem>
-                    {/* <ListItem>
-                    <KeyboardDatePicker
-                        margin="normal" id="date" label="Date" value={this.state.date}
-                        format="MM/dd/yyyy" value={this.state.date} onChange={this.handleInput} 
-                        KeyboardButtonProps={{'aria-label': 'change date',}}
-                    />
-                    </ListItem> */}
+                    <ListItem>
+                        <KeyboardDatePicker
+                            margin="normal" id="date" label="Date" value={this.state.date}
+                            format="MM/dd/yyyy" value={this.state.date} onChange={this.handleInput} 
+                            KeyboardButtonProps={{'aria-label': 'change date',}}
+                        />
+                    </ListItem>
                 </List>
             </form>
             </MuiPickersUtilsProvider>
