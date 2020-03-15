@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, withRouter} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
 import Login from './components/Login';
@@ -12,14 +12,14 @@ class App extends Component {
     super()
     this.state = {
       users:[],
-      transactions:[],
+      transactions:[]
     }
   }
   
   login = (user) => {
     user._id = this.getRandomId()
-    console.log(user)
-    window.location.href='/transactions'
+    const users = [...this.state.users].push(user)
+    this.setState({users})
   }
 
   async getTransactions() {

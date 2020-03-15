@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function MyAppBar(props) {
   const classes = useStyles();
-
+  const history = useHistory()
   const [state, setState] = React.useState({
     left: false,
   });
@@ -45,7 +46,7 @@ export default function MyAppBar(props) {
           <Typography variant="h6" className={classes.title} align="center">
             {props.headline}
           </Typography>
-          <Button color="inherit" onClick={e => window.location.href='/'}>LOGOUT</Button>
+          <Button color="inherit" onClick={()=>history.push('/')}>LOGOUT</Button>
         </Toolbar>
       </AppBar>
       <DrawerMenu toggleDrawer={toggleDrawer} state={state}/>

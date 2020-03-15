@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
 import {MySnackBar} from './'
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 import 'date-fns';
@@ -17,12 +18,12 @@ class Operations extends Component {
             vendor:'',
             category:'',
             date: new Date(),
-            openSnackBar:false
+            snackBar:{open:false, text:''}
         }
     }
     
     handleInput = (e) => {
-        if(e == null) {return}        //in case user inputs nothing
+        if(e == null) {return}        //in case user inputs nothing to date
         let val
         let id
         if(!e.target){
@@ -35,23 +36,41 @@ class Operations extends Component {
         this.setState({[id]:val})
     }
 
+    validateInputs = t => {
+        const snackBar = {...this.state.snackBar}
+        Object.keys(t).forEach(k => {
+            if(t[k] === '' || t[k] === 0) {
+                snackBar.text = `Must Enter ${k}!`
+                snackBar.open = true
+                this.setState({snackBar})
+                return false
+            }
+        })
+        if(this.props.balance + t.amount < 0){
+            snackBar.text = `Insufficient Funds!`
+            snackBar.open = true
+            this.setState({snackBar})
+            return false
+        }
+        return true
+    }
+
     newTransaction = (e) => {
         const sign = e.target.innerText === 'DEPOSIT' ? 1 : -1
-        if(sign === -1 && this.state.amount > this.props.balance){
-            this.handleSnackBar(true)
-            return
-        }
-        this.props.newTransaction({
+        const t = {
             amount: this.state.amount*sign,
             vendor: this.state.vendor,
             category: this.state.category,
             date: this.state.date
-        })
-        window.location.href='/transactions'
+        }
+        if(this.validateInputs(t)){
+            this.props.newTransaction(t)
+        }
     }
 
-    handleSnackBar = (openSnackBar) => {
-        this.setState({openSnackBar})
+    closeSnackBar = () => {
+        const snackBar = {open:false, text:''}
+        this.setState({snackBar})
     }
     
     render() {
@@ -77,12 +96,12 @@ class Operations extends Component {
                     </ListItem>
                     <Divider id="divider"/>
                     <ListItem id="btns-list-item">
-                        <Button color="primary" variant="contained" onClick={this.newTransaction}>Deposit</Button>
-                        <Button color="secondary" variant="contained" onClick={this.newTransaction}>Withdraw</Button>
+                            <Button color="primary" variant="contained" onClick={this.newTransaction}>Deposit</Button>
+                            <Button color="secondary" variant="contained" onClick={this.newTransaction}>Withdraw</Button>
                     </ListItem>
                 </List>
             </form>
-            <MySnackBar open={this.state.openSnackBar} handleSnackBar={this.handleSnackBar}/>
+            <MySnackBar open={this.state.snackBar.open} text={this.state.snackBar.text} closeSnackBar={this.closeSnackBar}/>
             </MuiPickersUtilsProvider>
         )
     }

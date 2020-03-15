@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 
 class Login extends Component {
@@ -19,6 +20,7 @@ class Login extends Component {
     login = () => {
         const user = {...this.state}
         this.props.login(user)
+
     }
 
     render() {
@@ -33,7 +35,7 @@ class Login extends Component {
                     </ListItem>
                     <Divider id="divider" />
                     <ListItem id="btns-list-item">
-                        <Button color="primary" variant="contained" onClick={this.login}>Login</Button>
+                        <Link to="/transactions"><Button color="primary" variant="contained" onClick={this.login}>Login</Button></Link>
                     </ListItem>
                 </List>
             </form>

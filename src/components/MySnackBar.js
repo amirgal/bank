@@ -24,14 +24,14 @@ export default function MySnackBar(props) {
     if (reason === 'clickaway') {
       return;
     }
-    props.handleSnackBar(false)
+    props.closeSnackBar()
   };
 
   return (
     <div className={classes.root}>
       <Snackbar open={props.open} autoHideDuration={3000} onClose={handleClose} >
         <Alert onClose={handleClose} severity="error">
-          Insufficient Funds!
+          {props.text}
         </Alert>
       </Snackbar>
     </div>

@@ -20,7 +20,7 @@ function Transaction(props) {
                 <DeleteIcon fontSize="large"/>
             </IconButton>
             </div>
-            <p className="transaction-date">{t.date}</p>
+            <p className="transaction-date">{t.date.toString().substring(0,15)}</p>
         </div>
     ) 
 }
