@@ -13,7 +13,9 @@ function Transactions(props) {
             <Grid container direction="column" spacing={1} alignItems="center">
             {props.transactions.map(t => 
                 <Grid item md={8} xs={11} className="transItem" key={t._id}>
-                    <Paper><Transaction  transaction={t} deleteTransaction={deleteTransaction}/></Paper>
+                    <Paper elevation={3}>
+                        <Transaction  transaction={t} deleteTransaction={deleteTransaction}/>
+                    </Paper>
                 </Grid>
                 )}
             </Grid>

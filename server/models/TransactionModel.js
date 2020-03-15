@@ -5,6 +5,7 @@ const transactionSchema = new Schema({
   amount: Number,
   category: String,
   vendor: String,
+  date: Date,
   _id: String
 });
 

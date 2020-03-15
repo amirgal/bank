@@ -26,10 +26,10 @@ class Login extends Component {
             <form autoComplete="off" noValidate className="form" >
                 <List>
                     <ListItem>
-                        <TextField className="textfield" id="username" label="Username" type="text" value={this.state.username} onChange={this.handleInput}/>
+                        <TextField className="inputfield" id="username" label="Username" type="text" value={this.state.username} onChange={this.handleInput}/>
                     </ListItem>
                     <ListItem>
-                        <TextField className="textfield" id="password" label="Password" type="password" value={this.state.password} onChange={this.handleInput}/>
+                        <TextField className="inputfield" id="password" label="Password" type="password" value={this.state.password} onChange={this.handleInput}/>
                     </ListItem>
                     <Divider id="divider" />
                     <ListItem id="btns-list-item">
