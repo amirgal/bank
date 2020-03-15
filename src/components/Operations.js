@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 import {MySnackBar} from './'
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 import 'date-fns';
@@ -89,7 +88,7 @@ class Operations extends Component {
                     </ListItem>
                     <ListItem>
                         <KeyboardDatePicker className="inputfield"
-                            margin="normal" id="date" label="Date" value={this.state.date}
+                            margin="normal" id="date" label="Date"
                             format="MM/dd/yyyy" value={this.state.date} onChange={this.handleInput} 
                             KeyboardButtonProps={{'aria-label': 'change date',}}
                         />

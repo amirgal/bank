@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, withRouter} from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
 import Login from './components/Login';
@@ -33,7 +33,7 @@ class App extends Component {
 
   deleteTransaction = (id) => {
     axios.delete(`http://localhost:4000/transaction/${id}`)
-    const transactions = this.state.transactions.filter(t => t._id != id)
+    const transactions = this.state.transactions.filter(t => t._id !== id)
     this.setState({transactions})
   }
 
