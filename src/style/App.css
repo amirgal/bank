@@ -17,6 +17,11 @@
   
 }
 
+#expansion-panel-list {
+  width:100%;
+  margin:0;
+  padding:0;
+}
 
 #btns-list-item{
   justify-content: center;
@@ -25,9 +30,30 @@
 #divider {
   margin: 8px 0;
 }
+.breakdown-header{
+  background-color: blue;
+}
 
-#header {
-  
+#breakdown {
+  text-align: center;
+  margin-top: 18%;
+  width:90%;
+  justify-self: center;
+  font-family:'Roboto';
+}
+
+.breakdown-item{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width:100%;
+}
+
+.breakdown-item>p {
+  margin:0;
+}
+
+#expansion-panel-list>li {
+  text-align: center;
 }
 
 #transactions {
@@ -40,11 +66,14 @@
 }
 
 .transaction {
+  border-radius: 4px;
+}
+
+.transaction-info {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  border-radius: 4px;
 }
 
 .withdrawal {
@@ -58,4 +87,8 @@
 a{
   text-decoration: none;
   color:black;
+}
+
+p{
+  margin:0;
 }

@@ -12,29 +12,24 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     '& > * + *': {
       marginTop: theme.spacing(2),
+     
     },
   },
 }));
 
 export default function MySnackBar(props) {
   const classes = useStyles();
-//   const [open, setOpen] = React.useState(props.open);
-
-//   const handleClick = (bool) => {
-//     setOpen(bool);
-//   };
   
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     props.handleSnackBar(false)
-    // setOpen(false);
   };
 
   return (
     <div className={classes.root}>
-      <Snackbar open={props.open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={props.open} autoHideDuration={3000} onClose={handleClose} >
         <Alert onClose={handleClose} severity="error">
           Insufficient Funds!
         </Alert>

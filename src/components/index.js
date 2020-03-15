@@ -5,6 +5,7 @@ import Category from "./Category";
 import Transactions from "./Transactions";
 import MyAppBar from './MyAppBar'
 import MySnackBar from './MySnackBar'
+import MyExpansionPanel from './MyExpansionPanel'
 
 export {
     Transaction,
@@ -13,5 +14,6 @@ export {
     Category,
     Transactions,
     MyAppBar,
-    MySnackBar
+    MySnackBar,
+    MyExpansionPanel
 }

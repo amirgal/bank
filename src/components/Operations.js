@@ -36,8 +36,8 @@ class Operations extends Component {
     }
 
     newTransaction = (e) => {
-        const sign = e.target.innerText == 'DEPOSIT' ? 1 : -1
-        if(sign == -1 && this.state.amount > this.props.balance){
+        const sign = e.target.innerText === 'DEPOSIT' ? 1 : -1
+        if(sign === -1 && this.state.amount > this.props.balance){
             this.handleSnackBar(true)
             return
         }
