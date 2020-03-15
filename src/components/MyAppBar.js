@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerMenu from './DrawerMenu'
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -43,9 +44,9 @@ export default function MyAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title} align="center">
-            {props.path}
+            {props.headline}
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={e => window.location.href='/'}>LOGOUT</Button>
         </Toolbar>
       </AppBar>
       <DrawerMenu toggleDrawer={toggleDrawer} state={state}/>

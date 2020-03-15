@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField'
-import { List, ListItem, Button, Divider } from '@material-ui/core';
+import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -44,19 +43,19 @@ class Operations extends Component {
     render() {
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <form autoComplete="off" noValidate id="operations-form" >
+            <form autoComplete="off" noValidate className="form" >
                 <List>
                     <ListItem>
-                        <TextField id="amount" label="Amount" type="number" min="0.01" value={this.state.amount} onChange={this.handleInput}/>
+                        <TextField id="amount" className="textfield" label="Amount" type="number" value={this.state.amount} onChange={this.handleInput}/>
                     </ListItem>
                     <ListItem>
-                        <TextField id="vendor" label="Vendor" variant="standard" type="text" value={this.state.vendor} onChange={this.handleInput}/>
+                        <TextField id="vendor" className="textfield" label="Vendor" type="text" value={this.state.vendor} onChange={this.handleInput}/>
                     </ListItem>
                     <ListItem>
-                        <TextField id="category" label="Category" variant="standard" type="text" value={this.state.category} onChange={this.handleInput}/>
+                        <TextField id="category" className="textfield" label="Category" type="text" value={this.state.category} onChange={this.handleInput}/>
                     </ListItem>
-                    <Divider />
-                    <ListItem>
+                    <Divider id="divider"/>
+                    <ListItem id="btns-list-item">
                         <Button color="primary" variant="contained" onClick={this.newTransaction}>Deposit</Button>
                         <Button color="secondary" variant="contained" onClick={this.newTransaction}>Withdraw</Button>
                     </ListItem>

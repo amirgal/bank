@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
@@ -11,11 +11,16 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      users:[],
       transactions:[],
-      path:'Transactions'
     }
   }
   
+  login = (user) => {
+    user._id = this.getRandomId()
+    console.log(user)
+  }
+
   async getTransactions() {
     return axios.get("http://localhost:4000/transactions")
   }
@@ -36,7 +41,8 @@ class App extends Component {
     transactions.forEach(t => balance += t.amount)
     return balance
   }
-  getRandomId () {
+
+  getRandomId = () => {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
@@ -50,14 +56,26 @@ class App extends Component {
   render() {
     
     return (
-      <Router >
-        <MyAppBar path={this.state.path}/>  
-        <Route path="/" exact render={() => <Login />}></Route>
+      <Router > 
+        <Route path="/" exact render={() => <Login login={this.login}/>}></Route>
         <Route path="/transactions" exact render={() => 
-            <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>}
-        />
-        <Route path="/operations" exact render={() => <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.transactions)}/>}/>
-        <Route path="/breakdown" exact render={() => <Breakdown transactions={this.state.transactions}/>}/>
+            <Fragment>
+              <MyAppBar headline={"Transactions"}/> 
+              <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.transactions}/>
+            </Fragment>
+        }/>
+        <Route path="/operations" exact render={() => 
+            <Fragment>
+              <MyAppBar headline={"Operations"}/> 
+              <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.transactions)}/>
+            </Fragment>
+            }/>
+        <Route path="/breakdown" exact render={() => 
+          <Fragment>
+            <MyAppBar headline={"Breakdown"}/> 
+            <Breakdown transactions={this.state.transactions}/>
+          </Fragment>
+        }/>
       </Router> 
     );
   }
