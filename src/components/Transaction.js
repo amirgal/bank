@@ -13,11 +13,11 @@ function Transaction(props) {
     return (
         <div className={`transaction ${operation}`} >
             <div className="transaction-info">
-            <p className="amount">Amount: {t.amount}</p>
-            <p className="vendor">Vendor: {t.vendor}</p>
-            <p className="category">Category: {t.category}</p>
+            <p className="amount">{t.amount}</p>
+            <p className="vendor">{t.vendor}</p>
+            <p className="category">{t.category}</p>
             <IconButton aria-label="delete" onClick={deleteTransaction}>
-                <DeleteIcon fontSize="large"/>
+                <DeleteIcon fontSize="default"/>
             </IconButton>
             </div>
             {/* <p className="transaction-date">{t.date.toString().substring(0,15)}</p> */}
