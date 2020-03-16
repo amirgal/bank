@@ -18,8 +18,8 @@ class App extends Component {
   
   login = (user) => {
     user._id = this.getRandomId()
-    const users = [...this.state.users].push(user)
-    this.setState({users})
+    // const users = [...this.state.users].push(user)
+    // this.setState({users})
   }
 
   async getTransactions() {

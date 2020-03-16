@@ -3,10 +3,7 @@ import {MySnackBar} from './'
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 
 class Operations extends Component {
 
