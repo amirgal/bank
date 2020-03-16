@@ -69,7 +69,8 @@ class Operations extends Component {
     }
 
     closeSnackBar = () => {
-        const snackBar = {open:false}
+        const snackBar = {...this.state.snackBar}
+        snackBar.open = false
         this.setState({snackBar})
     }
     
@@ -101,7 +102,7 @@ class Operations extends Component {
                     </ListItem>
                 </List>
             </form>
-            <MySnackBar open={this.state.snackBar.open} text={this.state.snackBar.text} closeSnackBar={this.closeSnackBar}/>
+            <MySnackBar open={this.state.snackBar.open} text={this.state.snackBar.text} severity={this.state.snackBar.severity} closeSnackBar={this.closeSnackBar}/>
             </MuiPickersUtilsProvider>
         )
     }
