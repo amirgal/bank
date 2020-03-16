@@ -20,7 +20,6 @@ class Login extends Component {
     login = () => {
         const user = {...this.state}
         this.props.login(user)
-
     }
 
     render() {

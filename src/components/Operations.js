@@ -14,7 +14,11 @@ class Operations extends Component {
             vendor:'',
             category:'',
             date: new Date(),
-            snackBar:{open:false, text:''}
+            snackBar:{
+                open:false,
+                 text:'',
+                 severity:''
+                }
         }
     }
     
@@ -33,22 +37,21 @@ class Operations extends Component {
     }
 
     validateInputs = t => {
-        const snackBar = {...this.state.snackBar}
-        Object.keys(t).forEach(k => {
+        let snackBar
+        let valid = true
+        for(let k of Object.keys(t)) {
             if(t[k] === '' || t[k] === 0) {
-                snackBar.text = `Must Enter ${k}!`
-                snackBar.open = true
-                this.setState({snackBar})
-                return false
+                snackBar = {open:true, text:`Must Enter ${k}!`, severity:'error'}
+                valid = false
+                break
             }
-        })
-        if(this.props.balance + t.amount < 0){
-            snackBar.text = `Insufficient Funds!`
-            snackBar.open = true
-            this.setState({snackBar})
-            return false
         }
-        return true
+        if(valid && this.props.balance + t.amount < 0){
+            snackBar = {open:true, text:`Insufficient Funds!`, severity:'error'}
+            valid = false
+        }
+        this.setState({snackBar})
+        return valid
     }
 
     newTransaction = (e) => {
@@ -60,12 +63,13 @@ class Operations extends Component {
             date: this.state.date
         }
         if(this.validateInputs(t)){
+            this.setState({snackBar:{open:true, text:'New Transaction Added',severity:'success'}})
             this.props.newTransaction(t)
         }
     }
 
     closeSnackBar = () => {
-        const snackBar = {open:false, text:''}
+        const snackBar = {open:false}
         this.setState({snackBar})
     }
     
