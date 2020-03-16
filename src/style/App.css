@@ -71,7 +71,7 @@
 
 .transaction-info {
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 3fr 3fr 1fr;
   justify-items: center;
   align-items: center;
 }
@@ -91,4 +91,5 @@ a{
 
 p{
   margin:0;
+  font-family: 'Merriweather', serif;
 }

@@ -21,7 +21,9 @@ class Login extends Component {
         const user = {...this.state}
         this.props.login(user)
     }
-
+    displayError = () => {
+        return "Incorrect entry."
+    }
     render() {
         return (
             <form autoComplete="off" noValidate className="form" >
