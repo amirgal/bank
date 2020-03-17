@@ -39,7 +39,7 @@ class Login extends Component {
                     </ListItem>
                     <Divider id="divider" />
                     <ListItem id="btns-list-item">
-                        <Button color="primary" variant="contained" onClick={this.login}>Login</Button>
+                        <Button color="primary" variant="contained" onClick={this.login}><Link to="/transactions">Login</Link></Button>
                         <Button color="primary" variant="contained" onClick={this.signUp}><Link to="/transactions">Sign Up</Link></Button>
                     </ListItem>
                 </List>

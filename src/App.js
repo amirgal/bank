@@ -16,12 +16,15 @@ class App extends Component {
   }
   
   login = async (user) => {
+    this.setState({user})
     let result
     try{
-      result = await axios.get(`http://localhost:4000/user/${user.name}`)
+      result = await this.getUser(user.username)
+      this.setState({user:result.data},function(){console.log(this.state.user)})
     }catch(err){
       console.log(err.message)
     }
+    debugger
   }
 
   signUp = async (user) => {
@@ -33,11 +36,14 @@ class App extends Component {
   getUser(username) {
     return axios.get(`http://localhost:4000/user/${username}`)
   }
- 
-  // async componentDidMount() {
-  //   debugger
-  //   const response = await this.getUser(this.state.user.username)   
-  //   this.setState({ user: response.data})
+
+  // async componentWillMount() {
+  //   try{
+  //     const result = await this.getUser(this.state.user.username)
+  //     this.setState({user:result.data},function(){console.log(this.state.user)})
+  //   }catch(err){
+  //     console.log(err.message)
+  //   }
   // }
 
   deleteTransaction = (id) => {
@@ -53,12 +59,7 @@ class App extends Component {
     return balance
   }
 
-  getRandomId = () => {
-    return '_' + Math.random().toString(36).substr(2, 9);
-  }
-
   newTransaction = async (t) => {
-    // t._id = this.getRandomId()
     t.userId = this.user._id
     const response = await axios.post("http://localhost:4000/transaction",t)
     const transaction = response.data
