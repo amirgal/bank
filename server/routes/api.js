@@ -8,18 +8,16 @@ router.get('/transactions', async function(req,res) {
     res.send(transactions)
 })
 
-router.post('/transaction/:userid', async function(req,res) {
-    const transaction = req.body
-    const {userid} = req.params
-    const trans = new Transaction(transaction)
-    await trans.save()
-    await User.findOneAndUpdate({_id:userid},{ $push: { transactions: trans } })
+router.post('/transaction', async function(req,res) {
+    const transaction = new Transaction(req.body)
+    await transaction.save()
+    await User.findOneAndUpdate({_id: transaction.userId},{ $push: { transactions: transaction } })
     res.end()
 })
 
-router.delete('/transaction/:transid', async function(req,res) {
-    const {transid} = req.params
-    await Transaction.findOneAndDelete({_id:transid})
+router.delete('/transaction/:transid/:userId', async function(req,res) {
+    const {transid,userId} = req.params
+    await User.findOneAndUpdate({_id:userId}, {$pull:{transactions: transid }})
     res.end()
 })
 
