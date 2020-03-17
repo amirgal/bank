@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
 
 class Login extends Component {
@@ -21,9 +20,12 @@ class Login extends Component {
         const user = {...this.state}
         this.props.login(user)
     }
-    displayError = () => {
-        return "Incorrect entry."
+
+    signUp = () => {
+        const user = {...this.state}
+        this.props.signUp(user)
     }
+
     render() {
         return (
             <form autoComplete="off" noValidate className="form" >
@@ -36,7 +38,8 @@ class Login extends Component {
                     </ListItem>
                     <Divider id="divider" />
                     <ListItem id="btns-list-item">
-                        <Link to="/transactions"><Button color="primary" variant="contained" onClick={this.login}>Login</Button></Link>
+                        <Button color="primary" variant="contained" onClick={this.login}>Login</Button>
+                        <Button color="primary" variant="contained" onClick={this.signUp}>Sign Up</Button>
                     </ListItem>
                 </List>
             </form>

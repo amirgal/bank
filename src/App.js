@@ -11,15 +11,24 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      users:[],
+      user:{},
       transactions:[]
     }
   }
   
-  login = (user) => {
+  login = async (user) => {
+    let result
+    try{
+      result = await axios.get(`http://localhost:4000/user/${user.name}`)
+    }catch(err){
+      console.log(err.message)
+    }
+  }
+
+  signUp = (user) => {
     user._id = this.getRandomId()
-    // const users = [...this.state.users].push(user)
-    // this.setState({users})
+    user.transactions = []
+    this.setState({user})
   }
 
   async getTransactions() {
@@ -32,9 +41,10 @@ class App extends Component {
   }
 
   deleteTransaction = (id) => {
-    axios.delete(`http://localhost:4000/transaction/${id}`)
-    const transactions = this.state.transactions.filter(t => t._id !== id)
-    this.setState({transactions})
+    axios.delete(`http://localhost:4000/transaction/${this.state.user._id}/${id}`)
+    const transactions = this.state.user.transactions.filter(t => t._id !== id)
+    const user = {...this.state.user,transactions}
+    this.setState({user})
   }
 
   getBalance = (transactions) => {
@@ -55,10 +65,9 @@ class App extends Component {
   }
 
   render() {
-    
     return (
       <Router > 
-        <Route path="/" exact render={() => <Login login={this.login}/>}></Route>
+        <Route path="/" exact render={() => <Login login={this.login} signUp={this.signUp}/>}></Route>
         <Route path="/transactions" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Transactions"}/> 
