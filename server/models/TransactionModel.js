@@ -6,7 +6,7 @@ const transactionSchema = new Schema({
   category: String,
   vendor: String,
   date: String,
-  _id: String
+  userId: String
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

@@ -17,11 +17,8 @@ router.post('/transaction/:userid', async function(req,res) {
     res.end()
 })
 
-router.delete('/transaction/:userid/:transid', async function(req,res) {
-    const {transid,userid} = req.params
-    const user = await User.findById(userid)
-    user.transactions = user.transactions.filter(t => t.id !== transid)
-    await User.findOneAndUpdate({ _id: userid }, { transactions: user.transactions });
+router.delete('/transaction/:transid', async function(req,res) {
+    const {transid} = req.params
     await Transaction.findOneAndDelete({_id:transid})
     res.end()
 })
@@ -33,12 +30,11 @@ router.get('/user/:username', async function(req,res) {
     res.send(user)
 })
 
-router.post('/newuser', function(req,res) {
+router.post('/newuser', async function(req,res) {
     const user = req.body
-    console.log(user)
     const newUser = new User(user)
-    newUser.save()
-    res.end()
+    await newUser.save()
+    res.send(newUser)
 })
 
 module.exports = router
