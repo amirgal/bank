@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { List,ListItem, Grid, ExpansionPanelSummary, ExpansionPanelDetails, Typography, ExpansionPanel} from '@material-ui/core';
+import { List,ListItem, ExpansionPanelSummary, ExpansionPanelDetails, Typography, ExpansionPanel} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,11 +34,6 @@ export default function MyExpansionPanel(props) {
           <List id="expansion-panel-list">
             {props.transByCategory[category].map(t => 
               <ListItem key={t.vendor}>
-                {/* <Grid container direction="row" justify="center" alignItems="center">
-                  <Grid item xs={3}>{t.category}</Grid>
-                  <Grid item xs={5}>{t.vendor}</Grid>
-                  <Grid item xs={3}>{t.amount}</Grid>
-                </Grid> */}
                 <div className="breakdown-item">
                 <p>{t.category} </p>
                 <p>{t.vendor} </p>

@@ -22,10 +22,21 @@ router.delete('/transaction/:transid/:userId', async function(req,res) {
 })
 
 //user managment
-router.get('/user/:username', async function(req,res) {
-    const {username} = req.params
-    const user = await User.find({username}).populate('transactions')
-    res.send(user)
+// router.get('/user/:username', async function(req,res) {
+//     const {username} = req.params
+//     const user = await User.find({username}).populate('transactions')
+//     res.send(user)
+// })
+
+router.post('/user', async function(req,res){
+    const user = req.body
+    const currUser = await User.find({username: user.username}).populate('transactions')
+    if(currUser[0].password === user.password){
+        res.send(currUser)
+    } else {
+        res.send('wrong password')
+        // throw new Error('err')
+    }
 })
 
 router.post('/newuser', async function(req,res) {

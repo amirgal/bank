@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
 import Login from './components/Login';
@@ -18,11 +18,11 @@ class App extends Component {
 
   login = async (user) => {
     try{
-      const response = await axios.get(`http://localhost:4000/user/${user.username}`)
+      const response = await axios.post('http://localhost:4000/user', user)
       const currUser = response.data[0]
       this.setState({user:currUser})
     }catch(err){
-      console.log(err.message)
+      alert(err.message)
     }
   }
 
@@ -36,10 +36,6 @@ class App extends Component {
     }
   }
 
-  // getUser(username) {
-  //   const response = await axios.get(`http://localhost:4000/user/${username}`)
-  //   return response.data[0]
-  // }
 
   // async componentWillMount() {
   //   try{
