@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
-import {Transactions, Operations, Breakdown, MyAppBar} from './components'
-import Login from './components/Login';
+import {Transactions, Operations, Breakdown, MyAppBar, Login, Footer} from './components'
+// import Login from './components/Login';
 const axios = require('axios');
 
 class App extends Component {
@@ -59,9 +59,9 @@ class App extends Component {
     this.setState({user})
   }
 
-  getBalance = (transactions) => {
+  getBalance = () => {
     let balance = 0
-    transactions.forEach(t => balance += t.amount)
+    this.state.user.transactions.forEach(t => balance += t.amount)
     return balance
   }
 
@@ -83,18 +83,21 @@ class App extends Component {
             <Fragment>
               <MyAppBar headline={"Transactions"}/> 
               <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.user.transactions}/>
+              <Footer username={this.state.user.username} balance={this.getBalance()} />
             </Fragment>
         }/>
         <Route path="/operations" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Operations"}/> 
               <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.user.transactions)}/>
+              <Footer username={this.state.user.username} balance={this.getBalance()} />
             </Fragment>
             }/>
         <Route path="/breakdown" exact render={() => 
           <Fragment>
             <MyAppBar headline={"Breakdown"}/> 
             <Breakdown transactions={this.state.user.transactions}/>
+            <Footer username={this.state.user.username} balance={this.getBalance()} />
           </Fragment>
         }/>
       </Router> 

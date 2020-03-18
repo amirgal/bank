@@ -5,6 +5,8 @@ import Transactions from "./Transactions";
 import MyAppBar from './MyAppBar'
 import MySnackBar from './MySnackBar'
 import MyExpansionPanel from './MyExpansionPanel'
+import Footer from './Footer'
+import Login from "./Login";
 
 export {
     Transaction,
@@ -13,5 +15,7 @@ export {
     Transactions,
     MyAppBar,
     MySnackBar,
-    MyExpansionPanel
+    MyExpansionPanel,
+    Footer,
+    Login
 }
