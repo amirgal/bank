@@ -7,6 +7,7 @@ import MySnackBar from './MySnackBar'
 import MyExpansionPanel from './MyExpansionPanel'
 import Footer from './Footer'
 import Login from "./Login";
+import Logo from "./Logo";
 
 export {
     Transaction,
@@ -17,5 +18,6 @@ export {
     MySnackBar,
     MyExpansionPanel,
     Footer,
-    Login
+    Login,
+    Logo
 }

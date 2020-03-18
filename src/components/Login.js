@@ -37,7 +37,7 @@ class Login extends Component {
 
     render() {
         return (
-            <form autoComplete="off" noValidate className="form" >
+            <form autoComplete="off" noValidate className="login form" >
                 <List>
                     <ListItem>
                         <TextField className="inputfield" id="username" label="Username" type="text" value={this.state.username} onChange={this.handleInput}/>

@@ -14,7 +14,10 @@
   border-radius: 5px;
   padding: 0 10px;
   width: 18em;
-  
+}
+
+.form.login {
+  margin-top:8vh
 }
 
 #expansion-panel-list {
@@ -114,4 +117,33 @@ p{
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   align-items: center;
+}
+
+#logo {
+  color:#3f51b5;
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
+}
+
+#bank-logo {
+  font-size: 50px;
+  margin-right: 10px;
+}
+
+#flipped-logo {
+  transform: scaleX(-1) rotate(180deg);
+  color: #3f51b52e;
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  margin-top: -26px;
+  align-items: center;
+}
+
+h1{
+  margin:0;
+  /* text-shadow: 1px 1px 1px #3f51b5; */
 }

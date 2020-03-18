@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import './style/App.css';
-import {Transactions, Operations, Breakdown, MyAppBar, Login, Footer} from './components'
-// import Login from './components/Login';
+import {Transactions, Operations, Breakdown, MyAppBar, Login, Footer, Logo} from './components'
 const axios = require('axios');
 
 class App extends Component {
@@ -10,7 +9,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      user:{},
+      user:JSON.parse(localStorage.currUser) || {},
     }
   }
 
@@ -22,6 +21,8 @@ class App extends Component {
       if(response.data.user){
         const currUser = response.data.user
         this.setState({user:currUser})
+        // localStorage.currUser = JSON.stringify(currUser)
+        localStorage.currUser = JSON.stringify(user)
         return true
       } else {
         alert(response.data.message)
@@ -36,20 +37,21 @@ class App extends Component {
     try{
     const response = await axios.post(`http://localhost:4000/newuser`,user)
     const currUser = response.data
-    this.setState({user:currUser},function(){console.log(this.state.user)})
+    localStorage.currUser = JSON.stringify(currUser)
+    this.setState({user:currUser})
     }catch(err){
       console.log(err)
     }
   }
 
 
-  // async componentWillMount() {
-  //   try{
-  //     const result = await this.getUser(this.state.user.username)
-  //     this.setState({user:result.data},function(){console.log(this.state.user)})
-  //   }catch(err){
-  //     console.log(err.message)
-  //   }
+  // componentWillMount() {
+  //   const user = JSON.parse(localStorage.currUser)
+  //   this.setState({user})
+  // }
+
+  // componentWillUnmount() {
+  //   localStorage.currUser = JSON.stringify(this.state.user)
   // }
 
   deleteTransaction = async (transId) => {
@@ -78,7 +80,12 @@ class App extends Component {
 
     return (
       <Router > 
-        <Route path="/" exact render={() => <Login login={this.login} signUp={this.signUp}/>}></Route>
+        <Route path="/" exact render={() => 
+          <Fragment>
+            <Logo />
+            <Login login={this.login} signUp={this.signUp}/>
+          </Fragment>
+        }/>
         <Route path="/transactions" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Transactions"}/> 
@@ -92,7 +99,7 @@ class App extends Component {
               <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.user.transactions)}/>
               <Footer username={this.state.user.username} balance={this.getBalance()} />
             </Fragment>
-            }/>
+          }/>
         <Route path="/breakdown" exact render={() => 
           <Fragment>
             <MyAppBar headline={"Breakdown"}/> 
