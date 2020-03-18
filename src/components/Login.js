@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -11,20 +11,26 @@ class Login extends Component {
         }
     }
 
+    routeChange = (path) => {
+        this.props.history.push(path);
+    }
+
     handleInput = (e) => {
         const val = e.target.value
         const id = e.target.id
         this.setState({[id]:val})
     }
 
-    login = () => {
+    login = async () => {
         const user = {...this.state}
-        this.props.login(user)
+        await this.props.login(user)
+        this.routeChange('/transactions')
     }
 
-    signUp = () => {
+    signUp = async () => {
         const user = {...this.state}
-        this.props.signUp(user)
+        await this.props.signUp(user)
+        this.routeChange('/transactions')
     }
 
     render() {
@@ -39,8 +45,8 @@ class Login extends Component {
                     </ListItem>
                     <Divider id="divider" />
                     <ListItem id="btns-list-item">
-                        <Button color="primary" variant="contained" onClick={this.login}><Link to="/transactions">Login</Link></Button>
-                        <Button color="primary" variant="contained" onClick={this.signUp}><Link to="/transactions">Sign Up</Link></Button>
+                        <Button color="primary" variant="contained" onClick={this.login}>LOGIN</Button>
+                        <Button color="primary" variant="contained" onClick={this.signUp}>SIGN UP</Button>
                     </ListItem>
                 </List>
             </form>
@@ -48,4 +54,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default withRouter(Login)

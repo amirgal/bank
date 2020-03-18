@@ -3,16 +3,16 @@ const router = express.Router()
 const Transaction = require('../models/TransactionModel') 
 const User = require('../models/UserModel') 
 
-router.get('/transactions', async function(req,res) {
-    const transactions = await Transaction.find({})
-    res.send(transactions)
-})
+// router.get('/transactions', async function(req,res) {
+//     const transactions = await Transaction.find({})
+//     res.send(transactions)
+// })
 
 router.post('/transaction', async function(req,res) {
     const transaction = new Transaction(req.body)
     await transaction.save()
     await User.findOneAndUpdate({_id: transaction.userId},{ $push: { transactions: transaction } })
-    res.end()
+    res.send(transaction)
 })
 
 router.delete('/transaction/:transid/:userId', async function(req,res) {

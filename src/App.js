@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import './style/App.css';
 import {Transactions, Operations, Breakdown, MyAppBar} from './components'
 import Login from './components/Login';
-
 const axios = require('axios');
 
 class App extends Component {
@@ -11,31 +10,36 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      user:{transactions:[]},
+      user:{},
     }
   }
+
   
+
   login = async (user) => {
-    this.setState({user})
-    let result
     try{
-      result = await this.getUser(user.username)
-      this.setState({user:result.data},function(){console.log(this.state.user)})
+      const response = await axios.get(`http://localhost:4000/user/${user.username}`)
+      const currUser = response.data[0]
+      this.setState({user:currUser})
     }catch(err){
       console.log(err.message)
     }
-    debugger
   }
 
   signUp = async (user) => {
+    try{
     const response = await axios.post(`http://localhost:4000/newuser`,user)
     const currUser = response.data
     this.setState({user:currUser},function(){console.log(this.state.user)})
+    }catch(err){
+      console.log(err.message)
+    }
   }
 
-  getUser(username) {
-    return axios.get(`http://localhost:4000/user/${username}`)
-  }
+  // getUser(username) {
+  //   const response = await axios.get(`http://localhost:4000/user/${username}`)
+  //   return response.data[0]
+  // }
 
   // async componentWillMount() {
   //   try{
@@ -46,9 +50,9 @@ class App extends Component {
   //   }
   // }
 
-  deleteTransaction = (id) => {
-    axios.delete(`http://localhost:4000/transaction/${id}`)
-    const transactions = this.state.user.transactions.filter(t => t._id !== id)
+  deleteTransaction = async (transId) => {
+    await axios.delete(`http://localhost:4000/transaction/${transId}/${this.state.user._id}`)
+    const transactions = this.state.user.transactions.filter(t => t._id !== transId)
     const user = {...this.state.user,transactions}
     this.setState({user})
   }
@@ -60,7 +64,7 @@ class App extends Component {
   }
 
   newTransaction = async (t) => {
-    t.userId = this.user._id
+    t.userId = this.state.user._id
     const response = await axios.post("http://localhost:4000/transaction",t)
     const transaction = response.data
     const user = {...this.state.user}
@@ -69,7 +73,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     return (
       <Router > 
         <Route path="/" exact render={() => <Login login={this.login} signUp={this.signUp}/>}></Route>
