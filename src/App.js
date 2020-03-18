@@ -9,7 +9,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      user:JSON.parse(localStorage.currUser) || {},
+      // user: JSON.parse(localStorage.currUser) || {},
+      user:{}
     }
   }
 
@@ -21,8 +22,8 @@ class App extends Component {
       if(response.data.user){
         const currUser = response.data.user
         this.setState({user:currUser})
-        // localStorage.currUser = JSON.stringify(currUser)
-        localStorage.currUser = JSON.stringify(user)
+        localStorage.currUser = JSON.stringify(currUser)
+        // localStorage.currUser = JSON.stringify(user)
         return true
       } else {
         alert(response.data.message)
