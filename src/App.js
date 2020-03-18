@@ -19,10 +19,16 @@ class App extends Component {
   login = async (user) => {
     try{
       const response = await axios.post('http://localhost:4000/user', user)
-      const currUser = response.data[0]
-      this.setState({user:currUser})
+      if(response.data.user){
+        const currUser = response.data.user
+        this.setState({user:currUser})
+        return true
+      } else {
+        alert(response.data.message)
+        return false
+      }
     }catch(err){
-      alert(err.message)
+      console.log(err)
     }
   }
 
@@ -32,7 +38,7 @@ class App extends Component {
     const currUser = response.data
     this.setState({user:currUser},function(){console.log(this.state.user)})
     }catch(err){
-      console.log(err.message)
+      console.log(err)
     }
   }
 

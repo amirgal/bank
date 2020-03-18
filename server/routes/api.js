@@ -3,10 +3,6 @@ const router = express.Router()
 const Transaction = require('../models/TransactionModel') 
 const User = require('../models/UserModel') 
 
-// router.get('/transactions', async function(req,res) {
-//     const transactions = await Transaction.find({})
-//     res.send(transactions)
-// })
 
 router.post('/transaction', async function(req,res) {
     const transaction = new Transaction(req.body)
@@ -21,22 +17,18 @@ router.delete('/transaction/:transid/:userId', async function(req,res) {
     res.end()
 })
 
-//user managment
-// router.get('/user/:username', async function(req,res) {
-//     const {username} = req.params
-//     const user = await User.find({username}).populate('transactions')
-//     res.send(user)
-// })
-
 router.post('/user', async function(req,res){
     const user = req.body
-    const currUser = await User.find({username: user.username}).populate('transactions')
-    if(currUser[0].password === user.password){
-        res.send(currUser)
+    const response = await User.find({username: user.username}).populate('transactions')
+    const data = {user:null, message:'Wrong username or password'}
+    if(response.length === 0){
+        data.message = 'Wrong username or password'
+    }else if(response[0].password === user.password){
+        data.user = response[0]
     } else {
-        res.send('wrong password')
-        // throw new Error('err')
+        data.message = 'Wrong username or password'
     }
+    res.send(data)
 })
 
 router.post('/newuser', async function(req,res) {

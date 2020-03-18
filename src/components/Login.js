@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {List, ListItem, Button, Divider, TextField} from '@material-ui/core';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -23,8 +23,10 @@ class Login extends Component {
 
     login = async () => {
         const user = {...this.state}
-        await this.props.login(user)
-        this.routeChange('/transactions')
+        const userVerified = await this.props.login(user)
+        if(userVerified){
+            this.routeChange('/transactions')
+        }
     }
 
     signUp = async () => {
