@@ -20,7 +20,7 @@ router.delete('/transaction/:transid/:userId', async function(req,res) {
 router.post('/user', async function(req,res){
     const user = req.body
     const response = await User.find({username: user.username}).populate('transactions')
-    const data = {user:null, message:'Wrong username or password'}
+    const data = {user:null, message:''}
     if(response.length === 0){
         data.message = 'Wrong username or password'
     }else if(response[0].password === user.password){

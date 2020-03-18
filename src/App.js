@@ -9,8 +9,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      // user: JSON.parse(localStorage.currUser) || {},
-      user:{}
+      user: JSON.parse(localStorage.currUser || '{}'),
+      // user:{}
     }
   }
 
@@ -46,9 +46,13 @@ class App extends Component {
   }
 
 
-  // componentWillMount() {
-  //   const user = JSON.parse(localStorage.currUser)
-  //   this.setState({user})
+  // async componentWillMount() {
+  //   const user = JSON.parse(localStorage.currUser || 'false')
+  //     if(user) {
+  //     const response = await axios.post('http://localhost:4000/user', user)
+  //     const currUser = response.data.user
+  //     this.setState({user:currUser})
+  //   }
   // }
 
   // componentWillUnmount() {
