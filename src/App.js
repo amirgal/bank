@@ -9,7 +9,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      userId: JSON.parse(localStorage.currUserId || ''),
+      userId: JSON.parse(localStorage.userId || ''),
+      userName: JSON.parse(''),
       userTransactions:[]
     }
   }
@@ -21,9 +22,13 @@ class App extends Component {
       const response = await axios.post('http://localhost:4000/user', user)
       if(response.data.userId){
         const userId = response.data.userId
-        localStorage.currUserId = JSON.stringify(userId)
+        const userName = user.username
+
+        localStorage.userId = JSON.stringify(userId)
+        localStorage.userName = JSON.stringify(userName)
+
         const userTransactions = await this.getUserTransactions(userId)
-        this.setState({userId, userTransactions})
+        this.setState({userId, userTransactions, userName})
         return true
       }else {
         alert(response.data.message)
@@ -38,8 +43,11 @@ class App extends Component {
     try{
       const response = await axios.post(`http://localhost:4000/newuser`,user)
       const userId = response.data
+      const userName = user.username
+
       localStorage.currUserId = JSON.stringify(userId)
-      this.setState({userId})
+      localStorage.userName = JSON.stringify(userName)
+      this.setState({userId,userName})
     }catch(err){
       console.log(err)
     }
@@ -55,18 +63,6 @@ class App extends Component {
     this.setState({userTransactions},function(){console.log(this.state)})
   }
 
-  // async componentWillMount() {
-  //   const user = JSON.parse(localStorage.currUser || 'false')
-  //     if(user) {
-  //     const response = await axios.post('http://localhost:4000/user', user)
-  //     const currUser = response.data.user
-  //     this.setState({user:currUser})
-  //   }
-  // }
-
-  // componentWillUnmount() {
-  //   localStorage.currUser = JSON.stringify(this.state.user)
-  // }
 
   deleteTransaction = async (transId) => {
     await axios.delete(`http://localhost:4000/transaction/${transId}/${this.state.userId}`)
@@ -103,21 +99,21 @@ class App extends Component {
             <Fragment>
               <MyAppBar headline={"Transactions"}/> 
               <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.userTransactions}/>
-              {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
+              <Footer username={this.state.userName} balance={this.getBalance()} />
             </Fragment>
         }/>
         <Route path="/operations" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Operations"}/> 
               <Operations newTransaction={this.newTransaction} balance={this.getBalance()}/>
-              {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
+              <Footer username={this.state.userName} balance={this.getBalance()} />
             </Fragment>
           }/>
         <Route path="/breakdown" exact render={() => 
           <Fragment>
             <MyAppBar headline={"Breakdown"}/> 
             <Breakdown transactions={this.state.userTransactions}/>
-            {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
+            <Footer username={this.state.userName} balance={this.getBalance()} />
           </Fragment>
         }/>
       </Router> 
