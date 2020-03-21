@@ -36,10 +36,10 @@ class App extends Component {
 
   signUp = async (user) => {
     try{
-    const response = await axios.post(`http://localhost:4000/newuser`,user)
-    const currUser = response.data
-    localStorage.currUser = JSON.stringify(currUser)
-    this.setState({user:currUser})
+      const response = await axios.post(`http://localhost:4000/newuser`,user)
+      const currUser = response.data
+      localStorage.currUser = JSON.stringify(currUser)
+      this.setState({user:currUser})
     }catch(err){
       console.log(err)
     }
