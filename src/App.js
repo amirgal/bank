@@ -9,13 +9,11 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      userId: JSON.parse(localStorage.userId || ''),
-      userName: JSON.parse(''),
-      userTransactions:[]
+      userId: localStorage.userId || '',
+      userName: localStorage.userName || '',
+      userTransactions: []
     }
   }
-
-  
 
   login = async (user) => {
     try{
@@ -24,8 +22,8 @@ class App extends Component {
         const userId = response.data.userId
         const userName = user.username
 
-        localStorage.userId = JSON.stringify(userId)
-        localStorage.userName = JSON.stringify(userName)
+        localStorage.userId = userId
+        localStorage.userName = userName
 
         const userTransactions = await this.getUserTransactions(userId)
         this.setState({userId, userTransactions, userName})
@@ -45,8 +43,8 @@ class App extends Component {
       const userId = response.data
       const userName = user.username
 
-      localStorage.currUserId = JSON.stringify(userId)
-      localStorage.userName = JSON.stringify(userName)
+      localStorage.currUserId = userId
+      localStorage.userName = userName
       this.setState({userId,userName})
     }catch(err){
       console.log(err)
@@ -60,7 +58,7 @@ class App extends Component {
 
   async componentDidMount() {
     const userTransactions = await this.getUserTransactions(this.state.userId)
-    this.setState({userTransactions},function(){console.log(this.state)})
+    this.setState({userTransactions})
   }
 
 
