@@ -9,8 +9,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      user: JSON.parse(localStorage.currUser || '{}'),
-      // user:{}
+      userId: JSON.parse(localStorage.currUserId || ''),
+      userTransactions:[]
     }
   }
 
@@ -19,13 +19,13 @@ class App extends Component {
   login = async (user) => {
     try{
       const response = await axios.post('http://localhost:4000/user', user)
-      if(response.data.user){
-        const currUser = response.data.user
-        this.setState({user:currUser})
-        localStorage.currUser = JSON.stringify(currUser)
-        // localStorage.currUser = JSON.stringify(user)
+      if(response.data.userId){
+        const userId = response.data.userId
+        localStorage.currUserId = JSON.stringify(userId)
+        const userTransactions = await this.getUserTransactions(userId)
+        this.setState({userId, userTransactions})
         return true
-      } else {
+      }else {
         alert(response.data.message)
         return false
       }
@@ -37,14 +37,23 @@ class App extends Component {
   signUp = async (user) => {
     try{
       const response = await axios.post(`http://localhost:4000/newuser`,user)
-      const currUser = response.data
-      localStorage.currUser = JSON.stringify(currUser)
-      this.setState({user:currUser})
+      const userId = response.data
+      localStorage.currUserId = JSON.stringify(userId)
+      this.setState({userId})
     }catch(err){
       console.log(err)
     }
   }
 
+  getUserTransactions = async (userId) => {
+    const res = await axios.get(`http://localhost:4000/transactions/${userId}`)
+    return res.data
+  }
+
+  async componentDidMount() {
+    const userTransactions = await this.getUserTransactions(this.state.userId)
+    this.setState({userTransactions},function(){console.log(this.state)})
+  }
 
   // async componentWillMount() {
   //   const user = JSON.parse(localStorage.currUser || 'false')
@@ -60,25 +69,24 @@ class App extends Component {
   // }
 
   deleteTransaction = async (transId) => {
-    await axios.delete(`http://localhost:4000/transaction/${transId}/${this.state.user._id}`)
-    const transactions = this.state.user.transactions.filter(t => t._id !== transId)
-    const user = {...this.state.user,transactions}
-    this.setState({user})
+    await axios.delete(`http://localhost:4000/transaction/${transId}/${this.state.userId}`)
+    const userTransactions = this.state.userTransactions.filter(t => t._id !== transId)
+    this.setState({userTransactions})
   }
 
   getBalance = () => {
     let balance = 0
-    this.state.user.transactions.forEach(t => balance += t.amount)
+    this.state.userTransactions.forEach(t => balance += t.amount)
     return balance
   }
 
   newTransaction = async (t) => {
-    t.userId = this.state.user._id
+    t.userId = this.state.userId
     const response = await axios.post("http://localhost:4000/transaction",t)
     const transaction = response.data
-    const user = {...this.state.user}
-    user.transactions.push(transaction)
-    this.setState({user})
+    const userTransactions = [...this.state.userTransactions]
+    userTransactions.push(transaction)
+    this.setState({userTransactions})
   }
 
   render() {
@@ -94,22 +102,22 @@ class App extends Component {
         <Route path="/transactions" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Transactions"}/> 
-              <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.user.transactions}/>
-              <Footer username={this.state.user.username} balance={this.getBalance()} />
+              <Transactions deleteTransaction={this.deleteTransaction} transactions={this.state.userTransactions}/>
+              {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
             </Fragment>
         }/>
         <Route path="/operations" exact render={() => 
             <Fragment>
               <MyAppBar headline={"Operations"}/> 
-              <Operations newTransaction={this.newTransaction} balance={this.getBalance(this.state.user.transactions)}/>
-              <Footer username={this.state.user.username} balance={this.getBalance()} />
+              <Operations newTransaction={this.newTransaction} balance={this.getBalance()}/>
+              {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
             </Fragment>
           }/>
         <Route path="/breakdown" exact render={() => 
           <Fragment>
             <MyAppBar headline={"Breakdown"}/> 
-            <Breakdown transactions={this.state.user.transactions}/>
-            <Footer username={this.state.user.username} balance={this.getBalance()} />
+            <Breakdown transactions={this.state.userTransactions}/>
+            {/* <Footer username={this.state.user.username} balance={this.getBalance()} /> */}
           </Fragment>
         }/>
       </Router> 

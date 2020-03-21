@@ -9,10 +9,6 @@ class Breakdown extends Component {
         }
     }
 
-    deleteTransaction = (id) => {
-        this.props.deleteTransaction(id)
-    }
-
     componentDidMount() {
         const transByCategory = {}
         this.props.transactions.forEach(t => {
