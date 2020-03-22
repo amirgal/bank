@@ -6,16 +6,16 @@ const api = require('./server/routes/api')
 const app = express()
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Bank", { useNewUrlParser: true, useUnifiedTopology: true })
 
-app.use(express.static(path.join(__dirname, 'build'))); //for heroku
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
-
+    
     next()
 })
 
+app.use(express.static(path.join(__dirname, 'build'))); //for heroku
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
