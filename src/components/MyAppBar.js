@@ -33,7 +33,8 @@ export default function MyAppBar(props) {
   };
 
   const logOut = () => {
-    localStorage.currUser = undefined
+    localStorage.userName = undefined
+    localStorage.userId = undefined
     history.push('/')
   }
   
