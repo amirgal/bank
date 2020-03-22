@@ -21,10 +21,8 @@ class App extends Component {
       if(response.data.userId){
         const userId = response.data.userId
         const userName = user.username
-
         localStorage.userId = userId
         localStorage.userName = userName
-
         const userTransactions = await this.getUserTransactions(userId)
         this.setState({userId, userTransactions, userName})
         return true
@@ -36,14 +34,13 @@ class App extends Component {
       console.log(err)
     }
   }
-
+  
   signUp = async (user) => {
     try{
       const response = await axios.post(`/newuser`,user)
       const userId = response.data
       const userName = user.username
-
-      localStorage.currUserId = userId
+      localStorage.userId = userId
       localStorage.userName = userName
       this.setState({userId,userName})
     }catch(err){
