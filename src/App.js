@@ -17,7 +17,7 @@ class App extends Component {
 
   login = async (user) => {
     try{
-      const response = await axios.post('http://localhost:4000/user', user)
+      const response = await axios.post('/user', user)
       if(response.data.userId){
         const userId = response.data.userId
         const userName = user.username
@@ -39,7 +39,7 @@ class App extends Component {
 
   signUp = async (user) => {
     try{
-      const response = await axios.post(`http://localhost:4000/newuser`,user)
+      const response = await axios.post(`/newuser`,user)
       const userId = response.data
       const userName = user.username
 
@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   getUserTransactions = async (userId) => {
-    const res = await axios.get(`http://localhost:4000/transactions/${userId}`)
+    const res = await axios.get(`/transactions/${userId}`)
     return res.data
   }
 
@@ -63,7 +63,7 @@ class App extends Component {
 
 
   deleteTransaction = async (transId) => {
-    await axios.delete(`http://localhost:4000/transaction/${transId}/${this.state.userId}`)
+    await axios.delete(`/transaction/${transId}/${this.state.userId}`)
     const userTransactions = this.state.userTransactions.filter(t => t._id !== transId)
     this.setState({userTransactions})
   }
@@ -76,7 +76,7 @@ class App extends Component {
 
   newTransaction = async (t) => {
     t.userId = this.state.userId
-    const response = await axios.post("http://localhost:4000/transaction",t)
+    const response = await axios.post("/transaction",t)
     const transaction = response.data
     const userTransactions = [...this.state.userTransactions]
     userTransactions.push(transaction)
