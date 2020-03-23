@@ -13,13 +13,14 @@ router.post('/transaction', async function(req,res) {
 
 router.delete('/transaction/:transid/:userId', async function(req,res) {
     const {transid,userId} = req.params
+    await Transaction.findOneAndDelete({_id:transid})
     await User.findOneAndUpdate({_id:userId}, {$pull:{transactions: transid }})
     res.end()
 })
 
 router.post('/user', async function(req,res){
     const user = req.body
-    const response = await User.find({username: user.username}).populate('transactions')
+    const response = await User.find({username: user.username})
     const data = {userId:null, message:''}
     if(response.length === 0){
         data.message = 'Wrong username or password'

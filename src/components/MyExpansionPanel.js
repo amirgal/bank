@@ -32,8 +32,8 @@ export default function MyExpansionPanel(props) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List id="expansion-panel-list">
-            {props.transByCategory[category].map(t => 
-              <ListItem key={t.vendor}>
+            {props.transByCategory[category].map((t,i) => 
+              <ListItem key={i}>
                 <div className="breakdown-item">
                 <p>{t.category} </p>
                 <p>{t.vendor} </p>

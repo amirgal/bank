@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const api = require('./server/routes/api')
 
 const app = express()
-mongoose.connect("mongodb://localhost/Bank", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb://localhost/Bank", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
