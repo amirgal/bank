@@ -35,11 +35,8 @@ class App extends Component {
   signUp = async (user) => {
     try{
       const response = await axios.post(`/newuser`,user)
-      const userId = response.data
-      const userName = user.username
-      localStorage.userId = userId
-      localStorage.userName = userName
-      this.setState({userId,userName})
+      this.saveToLocalStorage(response.data,user.username)
+      this.setState({userId:response.data, userName:user.username})
     }catch(err){
       console.log(err)
     }
