@@ -19,12 +19,9 @@ class App extends Component {
     try{
       const response = await axios.post('/user', user)
       if(response.data.userId){
-        const userId = response.data.userId
-        const userName = user.username
-        localStorage.userId = userId
-        localStorage.userName = userName
-        const userTransactions = await this.getUserTransactions(userId)
-        this.setState({userId, userTransactions, userName})
+        this.saveToLocalStorage(response.data.userId,user.username)
+        const userTransactions = await this.getUserTransactions(response.data.userId)
+        this.setState({userId:response.data.userId, userTransactions, userName:user.username})
         return true
       }else {
         alert(response.data.message)
@@ -46,6 +43,11 @@ class App extends Component {
     }catch(err){
       console.log(err)
     }
+  }
+
+  saveToLocalStorage = (userId,userName) => {
+    localStorage.userId = userId
+    localStorage.userName = userName
   }
 
   getUserTransactions = async (userId) => {

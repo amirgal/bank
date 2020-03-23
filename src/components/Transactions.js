@@ -3,10 +3,6 @@ import {Transaction} from './';
 import {Grid, Paper} from '@material-ui/core'
 
 function Transactions(props) {
-
-    const deleteTransaction = (id) => {
-        props.deleteTransaction(id)
-    }
     
     return (
         <div id="transactions">
@@ -17,7 +13,7 @@ function Transactions(props) {
             {props.transactions.map(t => 
                 <Grid item md={8} xs={11} className="transItem" key={t._id}>
                     <Paper elevation={3}>
-                        <Transaction  transaction={t} deleteTransaction={deleteTransaction}/>
+                        <Transaction  transaction={t} deleteTransaction={props.deleteTransaction}/>
                     </Paper>
                 </Grid>
                 )}
